@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Electric Cars</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+    <a th:href="@{/electric-cars/create}">Create electric car</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Battery capacity</th>
+            <th>Seats</th>
+            <th>Engine power</th>
+            <th>Insurance start</th>
+            <th>Insurance end</th>
+            <th>Insurance price</th>
+            <th>Insurance company</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="electricCar, loop: ${electricCars}">
+        <tr>
+            <td th:text="${electricCar.name}"></td>
+            <td th:text="${electricCar.batteryCapacity}"></td>
+            <td th:text="${electricCar.seats}"></td>
+            <td th:text="${electricCar.enginePower}"></td>
+            <td th:text="${electricCar.currentInsuranceContract?.startTimeStr}"></td>
+            <td th:text="${electricCar.currentInsuranceContract?.endTimeStr}"></td>
+            <td th:text="${electricCar.currentInsuranceContract?.pricePerYear}"></td>
+            <td th:text="${electricCar.currentInsuranceContract?.insuranceCompany?.name}"></td>
+            <td>
+                <a th:href="@{'/electric-cars/' + ${electricCar.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/electric-cars/' + ${electricCar.id} + '/delete'}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

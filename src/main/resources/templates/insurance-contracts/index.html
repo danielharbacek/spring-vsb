@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Insurance Contracts</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+    <a th:href="@{/insurance-contracts/create}">Create insurance contract</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Start time</th>
+            <th>End time</th>
+            <th>Price per year</th>
+            <th>Car name</th>
+            <th>Insurance company name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="insuranceContract, loop: ${insuranceContracts}">
+        <tr>
+            <td th:text="${insuranceContract.startTimeStr}"></td>
+            <td th:text="${insuranceContract.endTimeStr}"></td>
+            <td th:text="${insuranceContract.pricePerYear}"></td>
+            <td th:text="${insuranceContract.car?.name}"></td>
+            <td th:text="${insuranceContract.insuranceCompany?.name}"></td>
+            <td>
+                <a th:href="@{'/insurance-contracts/' + ${insuranceContract.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/insurance-contracts/' + ${insuranceContract.id} + '/delete'}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

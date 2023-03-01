@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Insurance Contract</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+    <a href="/logout">Logout</a>
+    <form th:action="@{'/insurance-contracts/' + ${id} + '/edit'}" method="post" th:object="${insuranceContract}">
+
+        <label for="startTime">Start time</label>
+        <input type="date" id="startTime" th:field="*{startTime}">
+
+        <br>
+
+        <label for="endTime">End time</label>
+        <input type="date" id="endTime" th:field="*{endTime}">
+
+        <br>
+
+        <label for="pricePerYear">Price per year</label>
+        <input type="number" id="pricePerYear" step="0.01" th:field="*{pricePerYear}">
+
+        <br>
+
+        <label for="car">Car</label>
+        <select th:field="*{car}" id="car">
+            <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.name}"></option>
+        </select>
+
+        <br>
+
+        <label for="insuranceCompany">Insurance company</label>
+        <select th:field="*{insuranceCompany}" id="insuranceCompany">
+            <option th:each="insuranceCompany : ${insuranceCompanies}" th:value="${insuranceCompany.id}" th:text="${insuranceCompany?.name}"></option>
+        </select>
+
+        <br>
+
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+</body>
+</html>

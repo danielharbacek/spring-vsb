@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Conventional Cars</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+    <a th:href="@{/conventional-cars/create}">Create conventional car</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Emissions</th>
+            <th>Seats</th>
+            <th>Engine power</th>
+            <th>Insurance start</th>
+            <th>Insurance end</th>
+            <th>Insurance price</th>
+            <th>Insurance company</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="conventionalCar, loop: ${conventionalCars}">
+        <tr>
+            <td th:text="${conventionalCar.name}"></td>
+            <td th:text="${conventionalCar.emissions}"></td>
+            <td th:text="${conventionalCar.seats}"></td>
+            <td th:text="${conventionalCar.enginePower}"></td>
+            <td th:text="${conventionalCar.currentInsuranceContract?.startTimeStr}"></td>
+            <td th:text="${conventionalCar.currentInsuranceContract?.endTimeStr}"></td>
+            <td th:text="${conventionalCar.currentInsuranceContract?.pricePerYear}"></td>
+            <td th:text="${conventionalCar.currentInsuranceContract?.insuranceCompany?.name}"></td>
+            <td>
+                <a th:href="@{'/conventional-cars/' + ${conventionalCar.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/conventional-cars/' + ${conventionalCar.id} + '/delete'}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
